@@ -1,4 +1,5 @@
 const http = require('http')
+const todos = require('./todos')
 
 const port = process.env.PORT || 8000
 
@@ -20,6 +21,9 @@ const router = (req, res) => {
         body = fruits.map(function(fruit) {
             return {name: fruit}
         })
+        break
+    case "/todos":
+        body = todos
         break
     case "/names":
         const names = [
@@ -80,7 +84,9 @@ const router = (req, res) => {
         break
     }
 
-    res.end(JSON.stringify({status: "Ok", data: body}))
+    const responseData = JSON.stringify({status: "Ok", data: body})
+    console.log("Response data: " + responseData)
+    res.end(responseData)
     console.log("Sent response, response headers: ", res.getHeaders())
 }
 
